@@ -1,20 +1,34 @@
 apiVersion: backstage.io/v1alpha1
-kind: API
+kind: Component
 metadata:
   name: beneficiary-service
   description: Manages beneficiary details and validation (.NET 8)
 spec:
-  type: openapi
+  type: service
   lifecycle: production
   owner: group:default/backend-team
   providesApis:
-    - api:default/mobile-gateway
-    - api:default/transfer-engine
-  dependsOn:
-    - component:default/t24-core-banking
+    - api:default/beneficiary-service
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: beneficiary-service
+  description: OpenAPI specification for Beneficiary Service
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/backend-team
   definition: |
     openapi: 3.0.0
     info:
-      title: beneficiary Engine API
+      title: Beneficiary Service API
       version: 1.0.0
-    paths: {}
+    paths:
+      /api/v1/beneficiaries:
+        get:
+          summary: Get beneficiary list
+          responses:
+            '200':
+              description: OK
