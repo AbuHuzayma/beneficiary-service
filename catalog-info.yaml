@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: beneficiary-service
+  description: Manages beneficiary details and validation
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/core-banking-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-hub
+  description: Payment processing microservice
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/payments-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: t24-core-banking
+  description: Temenos T24 Core Banking System
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/core-banking-team
