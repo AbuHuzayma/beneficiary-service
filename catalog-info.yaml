@@ -3,6 +3,17 @@ kind: Component
 metadata:
   name: beneficiary-service
   description: Manages beneficiary details and validation (.NET 8)
+  tags:
+    - dotnet8
+    - csharp
+    - MSSQL
+  labels:
+    criticality: tier-1
+  annotations:
+    hosting/cluster: "OpenShift"
+    database/name: "BeneficiaryEngineDb"
+    database/type: "MSSQL"
+    database/host: "pg-prod-east.database.com"
 spec:
   type: service
   lifecycle: production
@@ -16,6 +27,17 @@ kind: API
 metadata:
   name: beneficiary-service
   description: OpenAPI specification for Beneficiary Service
+  tags:
+    - dotnet8
+    - csharp
+    - MSSQL
+  labels:
+    criticality: tier-1
+  annotations:
+    hosting/cluster: "OpenShift"
+    database/name: "BeneficiaryEngineDb"
+    database/type: "MSSQL"
+    database/host: "pg-prod-east.database.com"
 spec:
   type: openapi
   lifecycle: production
