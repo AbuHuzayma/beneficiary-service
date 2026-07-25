@@ -6,20 +6,23 @@ metadata:
   tags:
     - dotnet8
     - csharp
-    - MSSQL
+    - mssql
   labels:
     criticality: tier-1
+    environment: production
   annotations:
     hosting/cluster: "OpenShift"
     database/name: "BeneficiaryEngineDb"
     database/type: "MSSQL"
-    database/host: "pg-prod-east.database.com"
+    database/host: "sql-prod-east.database.com"  # Corrected hostname convention
 spec:
   type: service
   lifecycle: production
   owner: group:default/backend-team
   providesApis:
     - api:default/beneficiary-service
+  dependsOn:
+    - resource:default/beneficiary-service-db
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -27,17 +30,6 @@ kind: API
 metadata:
   name: beneficiary-service
   description: OpenAPI specification for Beneficiary Service
-  tags:
-    - dotnet8
-    - csharp
-    - MSSQL
-  labels:
-    criticality: tier-1
-  annotations:
-    hosting/cluster: "OpenShift"
-    database/name: "BeneficiaryEngineDb"
-    database/type: "MSSQL"
-    database/host: "pg-prod-east.database.com"
 spec:
   type: openapi
   lifecycle: production
@@ -54,3 +46,15 @@ spec:
           responses:
             '200':
               description: OK
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: beneficiary-service-db
+  description: MSSQL Database for Beneficiary Service
+  tags:
+    - mssql
+spec:
+  type: database
+  owner: group:default/backend-team
